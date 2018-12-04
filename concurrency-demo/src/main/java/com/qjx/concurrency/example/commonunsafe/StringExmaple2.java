@@ -23,7 +23,7 @@ public class StringExmaple2 {
 
     public static StringBuffer stringBuffer = new StringBuffer();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         ExecutorService executorService = Executors.newCachedThreadPool();
         final Semaphore semaphore = new Semaphore(threadTotal);
@@ -40,8 +40,10 @@ public class StringExmaple2 {
                 }catch (Exception e){
                     log.error(e.getMessage(),e);
                 }
+                countDownLatch.countDown();
             });
         }
+        countDownLatch.await();
         executorService.shutdown();
         log.info("size {}",stringBuffer.length());
 

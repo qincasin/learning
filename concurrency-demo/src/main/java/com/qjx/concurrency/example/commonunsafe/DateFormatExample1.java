@@ -28,7 +28,7 @@ public class DateFormatExample1 {
     private static int threadTotal = 200;
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         ExecutorService executorService = Executors.newCachedThreadPool();
         final Semaphore semaphore = new Semaphore(threadTotal);
@@ -45,8 +45,10 @@ public class DateFormatExample1 {
                 }catch (Exception e){
                     log.error(e.getMessage(),e);
                 }
+                countDownLatch.countDown();
             });
         }
+        countDownLatch.await();
         executorService.shutdown();
 
 

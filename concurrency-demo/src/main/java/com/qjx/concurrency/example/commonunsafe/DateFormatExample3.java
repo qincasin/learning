@@ -1,6 +1,6 @@
 package com.qjx.concurrency.example.commonunsafe;
 
-import com.qjx.concurrency.annotations.NotThreadSafe;
+import com.qjx.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -15,7 +15,7 @@ import java.util.concurrent.Semaphore;
  * DateFormat
  */
 @Slf4j
-@NotThreadSafe
+@ThreadSafe
 public class DateFormatExample3 {
 
 
@@ -30,7 +30,7 @@ public class DateFormatExample3 {
 
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyyMMdd");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
 
         ExecutorService executorService = Executors.newCachedThreadPool();
         final Semaphore semaphore = new Semaphore(threadTotal);
@@ -48,8 +48,10 @@ public class DateFormatExample3 {
                 }catch (Exception e){
                     log.error(e.getMessage(),e);
                 }
+                countDownLatch.countDown();
             });
         }
+        countDownLatch.await();
         executorService.shutdown();
 
 
