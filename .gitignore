@@ -29,3 +29,4 @@ learning.iml
 .mvn
 
 mvnw.cmd
+.attach_*
