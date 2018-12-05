@@ -1,11 +1,10 @@
-package com.qjx.concurrency.example.commonunsafe;
+package com.qjx.concurrency.example.common.unsafe;
 
-import com.qjx.concurrency.annotations.ThreadSafe;
+import com.qjx.concurrency.annotations.NotThreadSafe;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,8 +14,8 @@ import java.util.concurrent.Semaphore;
  * DateFormat
  */
 @Slf4j
-@ThreadSafe
-public class DateFormatExample3 {
+@NotThreadSafe
+public class HashMapExample {
 
 
     /**
@@ -28,7 +27,7 @@ public class DateFormatExample3 {
      */
     private static int threadTotal = 200;
 
-    private static DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyyMMdd");
+    private static Map<Integer,Integer> map = new HashMap<>();
 
     public static void main(String[] args) throws Exception{
 
@@ -53,12 +52,14 @@ public class DateFormatExample3 {
         }
         countDownLatch.await();
         executorService.shutdown();
+        log.info("size {}",map.size());
+
 
 
     }
 
     private static void update(int i) {
-        log.info("{}, {} ",i,DateTime.parse("20180101",dateTimeFormatter).toDate());
+        map.put(i,i);
     }
 
 

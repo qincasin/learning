@@ -1,17 +1,23 @@
-package com.qjx.concurrency.example.commonunsafe;
+package com.qjx.concurrency.example.common.unsafe;
 
 import com.qjx.concurrency.annotations.NotThreadSafe;
-import com.qjx.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
+/**
+ * DateFormat
+ */
 @Slf4j
-@ThreadSafe
-public class StringExmaple2 {
+@NotThreadSafe
+public class ArrayListExample {
+
+
     /**
      * 请求总数
      */
@@ -21,9 +27,9 @@ public class StringExmaple2 {
      */
     private static int threadTotal = 200;
 
-    public static StringBuffer stringBuffer = new StringBuffer();
+    private static List<Integer> list = new ArrayList();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception{
 
         ExecutorService executorService = Executors.newCachedThreadPool();
         final Semaphore semaphore = new Semaphore(threadTotal);
@@ -31,11 +37,12 @@ public class StringExmaple2 {
         final CountDownLatch countDownLatch = new CountDownLatch(clientTotal);
 
         for (int i = 0; i < clientTotal; i++) {
+            final int count = i;
             executorService.execute(()->{
 
                 try {
                     semaphore.acquire();
-                    update();
+                    update(count);
                     semaphore.release();
                 }catch (Exception e){
                     log.error(e.getMessage(),e);
@@ -45,13 +52,14 @@ public class StringExmaple2 {
         }
         countDownLatch.await();
         executorService.shutdown();
-        log.info("size {}",stringBuffer.length());
+        log.info("size {}",list.size());
+
 
 
     }
 
-    private static void update() {
-        stringBuffer.append("1");
+    private static void update(int i) {
+        list.add(i);
     }
 
 

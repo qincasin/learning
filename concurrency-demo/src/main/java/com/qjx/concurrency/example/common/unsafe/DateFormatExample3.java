@@ -1,10 +1,11 @@
-package com.qjx.concurrency.example.commonunsafe;
+package com.qjx.concurrency.example.common.unsafe;
 
-import com.qjx.concurrency.annotations.NotThreadSafe;
+import com.qjx.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,8 +15,8 @@ import java.util.concurrent.Semaphore;
  * DateFormat
  */
 @Slf4j
-@NotThreadSafe
-public class ArrayListExample {
+@ThreadSafe
+public class DateFormatExample3 {
 
 
     /**
@@ -27,7 +28,7 @@ public class ArrayListExample {
      */
     private static int threadTotal = 200;
 
-    private static List<Integer> list = new ArrayList();
+    private static DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyyMMdd");
 
     public static void main(String[] args) throws Exception{
 
@@ -52,14 +53,12 @@ public class ArrayListExample {
         }
         countDownLatch.await();
         executorService.shutdown();
-        log.info("size {}",list.size());
-
 
 
     }
 
     private static void update(int i) {
-        list.add(i);
+        log.info("{}, {} ",i,DateTime.parse("20180101",dateTimeFormatter).toDate());
     }
 
 

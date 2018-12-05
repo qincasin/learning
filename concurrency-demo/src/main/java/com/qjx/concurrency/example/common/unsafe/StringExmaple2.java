@@ -1,22 +1,17 @@
-package com.qjx.concurrency.example.commonunsafe;
+package com.qjx.concurrency.example.common.unsafe;
 
 import com.qjx.concurrency.annotations.NotThreadSafe;
+import com.qjx.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
-import java.text.SimpleDateFormat;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
-/**
- * DateFormat
- */
 @Slf4j
-@NotThreadSafe
-public class DateFormatExample2 {
-
-
+@ThreadSafe
+public class StringExmaple2 {
     /**
      * 请求总数
      */
@@ -26,8 +21,9 @@ public class DateFormatExample2 {
      */
     private static int threadTotal = 200;
 
+    public static StringBuffer stringBuffer = new StringBuffer();
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 
         ExecutorService executorService = Executors.newCachedThreadPool();
         final Semaphore semaphore = new Semaphore(threadTotal);
@@ -49,17 +45,13 @@ public class DateFormatExample2 {
         }
         countDownLatch.await();
         executorService.shutdown();
+        log.info("size {}",stringBuffer.length());
 
 
     }
 
     private static void update() {
-        try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-            simpleDateFormat.parse("20181011");
-        }catch (Exception e){
-            log.error("parse exception",e);
-        }
+        stringBuffer.append("1");
     }
 
 
