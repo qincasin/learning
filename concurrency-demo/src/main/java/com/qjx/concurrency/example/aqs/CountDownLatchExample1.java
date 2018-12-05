@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class CountDownLatchExample1 {
     /**
-     * 同时执行的线程数
+     * 请求数 200个线程
      */
     private final static int threadCount = 200;
 
