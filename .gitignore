@@ -25,8 +25,9 @@
 hs_err_pid*
 learning.iml
 .idea
-
+design-pattern.iml
+design-pattern-demo.iml
 .mvn
-
+mvnw
 mvnw.cmd
 .attach_*

@@ -13,7 +13,7 @@
 ### IntelliJ IDEA ###
 .idea
 *.iws
-*.iml
+singleton-demo.iml
 *.ipr
 
 ### NetBeans ###
