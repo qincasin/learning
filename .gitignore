@@ -31,3 +31,5 @@ design-pattern-demo.iml
 mvnw
 mvnw.cmd
 .attach_*
+
+*.iml
