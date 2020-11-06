@@ -37,5 +37,6 @@ public class Stream {
         integers.remove(1);
         System.out.println(integers);
 
+
     }
 }
