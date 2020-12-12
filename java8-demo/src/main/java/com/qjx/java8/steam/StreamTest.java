@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -125,6 +127,39 @@ public class StreamTest {
                 .limit(10)
                 .forEach(t -> System.out.println(t[0] + " " + t[1]));
     }
+
+    /**
+     * ==================== 收集器 ===================
+     * 1.将流元素归约和汇总为一个值
+     * 2.元素分组
+     * 3.元素分区
+     */
+
+    /**
+     *  分区
+     *  将数据按照质数和非质数分区
+     */
+    @Test
+    public void testIsPrime(){
+        int candidate = 10;
+        Map<Boolean, List<Integer>> prime2 = isPrime2(candidate);
+        System.out.println(prime2);
+
+    }
+    public Map<Boolean, List<Integer>> isPrime2(int candidate){
+        Map<Boolean, List<Integer>> result = IntStream.rangeClosed(2, candidate).boxed()
+                .collect(Collectors.partitioningBy(this::isPrime));
+        return result;
+
+    }
+    private boolean isPrime(int candidate){
+        int candidateRoot = (int) Math.sqrt((double) candidate);
+        return IntStream.rangeClosed(2, candidateRoot)
+                .noneMatch(i -> candidate % i == 0);
+    }
+
+
+
 
 
 }

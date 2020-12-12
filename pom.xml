@@ -19,6 +19,8 @@
         <module>spring-security</module>
         <module>java8-demo</module>
         <module>java-magic-demo</module>
+        <module>es-demo</module>
+        <module>java-15</module>
     </modules>
 
     <properties>
