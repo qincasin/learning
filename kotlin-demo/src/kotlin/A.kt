@@ -1,0 +1,5 @@
+package kotlin
+
+class A {
+
+}
